@@ -5,5 +5,7 @@
  * @returns {number}
  */
 function sum(m, n) {
-  // ваш код...
+  var summ = 0;
+  summ=m+n;
+  return summ;
 }
