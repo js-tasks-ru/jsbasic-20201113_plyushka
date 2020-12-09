@@ -4,5 +4,9 @@
  * @returns {{min:number, max:number}}  объект
  */
 function getMinMax(str) {
-  // ваш код...
+  let arr = str.split(',').join(' ').split(' ').filter(item=>!isNaN(+ item)&&(item!='')).sort(function(a, b) { return a - b; });
+  return result = {
+    min: +arr[0],
+    max: +arr[arr.length-1]
+  }
 }
