@@ -5,8 +5,8 @@ function initCarousel() {
     let carousel__inner=document.querySelector('.carousel__inner');
     let position = + carousel__inner.style.transform.slice(11).slice(0,-3); //текущая позиция
     let res=position+width*direction; //новая позиция
-    (position == -width*2)? document.querySelector('.carousel__arrow_right').style.display = 'none' : document.querySelector('.carousel__arrow_right').style.display = '';
-    (position == -width)? document.querySelector('.carousel__arrow_left').style.display = 'none' : document.querySelector('.carousel__arrow_left').style.display = '';
+    (position == -width*2 && direction==-1)? document.querySelector('.carousel__arrow_right').style.display = 'none' : document.querySelector('.carousel__arrow_right').style.display = '';
+    (position == -width && direction==1)? document.querySelector('.carousel__arrow_left').style.display = 'none' : document.querySelector('.carousel__arrow_left').style.display = '';
     carousel__inner.style.transform = 'translateX('+ res +'px)';
   };
 
