@@ -44,7 +44,6 @@ export default class Carousel {
           bubbles: true // это событие всплывает - это понадобится в дальнейшем
         });
         this.elem.dispatchEvent(myEvent);
-        console.log(myEvent);
       });
     }
     document.body.append(this.elem);
