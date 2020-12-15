@@ -22,13 +22,15 @@ export default class ProductCard {
     </div>`;
 		this.elem.insertAdjacentHTML('beforeend', cardProduct);
 
-    this.elem.querySelector('.card__button').addEventListener('product-add',(event) => {
-      let eventCard = new CustomEvent("product-add", { // имя события должно быть именно "product-add"
+    this.elem.querySelector('.card__button').addEventListener('click',(event) => {
+      let myEvent  = new CustomEvent("product-add", { // имя события должно быть именно "product-add"
         detail: this.product.id, // Уникальный идентификатора товара из объекта товара
         bubbles: true // это событие всплывает - это понадобится в дальнейшем
       });
-      this.elem.dispatchEvent(eventCard);
+      this.elem.dispatchEvent(myEvent);
+      console.log(myEvent);
     });
+
 		document.body.append(this.elem);
   }
 }

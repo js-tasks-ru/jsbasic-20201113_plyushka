@@ -19,7 +19,7 @@ export default class Carousel {
 
     for (const slide of this.slides) {
       let oneSlide = `
-      <div class="carousel__slide" data-id="penang-shrimp">
+      <div class="carousel__slide" data-id="${slide.id}">
         <img src="/assets/images/carousel/${slide.image}" class="carousel__img" alt="slide">
         <div class="carousel__caption">
           <span class="carousel__price">€${slide.price.toFixed(2)}</span>
@@ -37,13 +37,16 @@ export default class Carousel {
     this.elem.querySelector('.carousel__arrow_right').addEventListener('click',this.slide);
     this.elem.querySelector('.carousel__arrow_left').addEventListener('click',this.slide);
 
-    this.elem.querySelector('.carousel__button').addEventListener('product-add',(event) => {
-      let event = new CustomEvent("product-add", { // имя события должно быть именно "product-add"
-        detail: this.slides.data-id, // Уникальный идентификатора товара из объекта товара
-        bubbles: true // это событие всплывает - это понадобится в дальнейшем
+    for(let slide of this.elem.querySelectorAll('.carousel__button')){
+      slide.addEventListener('click',(event) => {
+        let myEvent = new CustomEvent("product-add", {
+          detail: slide.parentElement.parentElement.dataset.id, // Уникальный идентификатора товара из объекта товара
+          bubbles: true // это событие всплывает - это понадобится в дальнейшем
+        });
+        this.elem.dispatchEvent(myEvent);
+        console.log(myEvent);
       });
-      this.elem.dispatchEvent(event);
-    });
+    }
     document.body.append(this.elem);
   }
 
