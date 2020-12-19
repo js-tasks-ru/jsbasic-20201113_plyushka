@@ -32,7 +32,6 @@ export default class StepSlider {
     let leftRelative = left / this.elem.offsetWidth;
     let segments = this.steps - 1;
     let approximateValue = leftRelative * segments;
-    console.log(approximateValue);
     let step = Math.round(approximateValue);
     if(event.target.tagName=='SPAN'){
       step = +event.target.dataset.order;

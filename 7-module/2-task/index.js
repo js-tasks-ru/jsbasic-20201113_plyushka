@@ -45,7 +45,6 @@ export default class Modal {
 
   setBody(modalBody){
     this.elem.querySelector('.modal__body').textContent='';
-    console.log(this.elem.querySelector('.modal__body'));
     this.elem.querySelector('.modal__body').append(modalBody);
   }
 }
