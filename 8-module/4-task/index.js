@@ -146,7 +146,6 @@ export default class Cart {
       method: 'POST',
       body: new FormData(cartForm),
     }).then(response => {
-      console.log(response);
       if (response.status==200) {
           this.modal.setTitle("Success!");
           this.modal.div.querySelector('button[type="submit"]').classList.remove("is-loading");
