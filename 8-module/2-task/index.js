@@ -24,7 +24,7 @@ export default class ProductGrid {
     for(let product of this.products){
       if (this.filters.noNuts && product.nuts) continue;
       if (this.filters.vegeterianOnly && !product.vegeterian) continue;
-      if (!!this.filters.maxSpiciness && product.spiciness > this.filters.maxSpiciness) continue;
+      if (this.filters.maxSpiciness!==void 0 && product.spiciness > this.filters.maxSpiciness) continue;
       if (this.filters.category && product.category != this.filters.category) continue;
 
       let card = new ProductCard(product);
