@@ -23,6 +23,9 @@ export default class Modal {
   }
 
   open() {
+    if (document.querySelector('.modal')) {
+      return;
+    }
     document.body.append(this.elem);
     document.body.classList.add('is-modal-open');
   }

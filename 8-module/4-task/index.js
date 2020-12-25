@@ -97,9 +97,6 @@ export default class Cart {
   }
 
   renderModal() {
-    if (this.modal) {
-      return;
-    }
     this.modal = new Modal();
     this.modal.setTitle('Your order');
     this.modal.div = document.createElement('DIV');
