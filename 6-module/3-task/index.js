@@ -4,6 +4,7 @@ export default class Carousel {
   constructor(slides) {
     this.slides = slides;
 
+
     this.elem = document.createElement('DIV');
     this.elem.classList.add('carousel');
 
@@ -34,31 +35,53 @@ export default class Carousel {
     this.elem.append(this.div);
 
     this.elem.querySelector('.carousel__arrow_left').style.display = 'none';
-    this.elem.querySelector('.carousel__arrow_right').addEventListener('click',this.slide);
-    this.elem.querySelector('.carousel__arrow_left').addEventListener('click',this.slide);
-
-    for(let slide of this.elem.querySelectorAll('.carousel__button')){
-      slide.addEventListener('click',(event) => {
-        let myEvent = new CustomEvent("product-add", {
-          detail: slide.parentElement.parentElement.dataset.id, // Уникальный идентификатора товара из объекта товара
-          bubbles: true // это событие всплывает - это понадобится в дальнейшем
-        });
-        this.elem.dispatchEvent(myEvent);
-      });
-    }
+    // this.elem.querySelector('.carousel__arrow_right').addEventListener('click',this.slide);
+    // this.elem.querySelector('.carousel__arrow_left').addEventListener('click',this.slide);
+    //
+    // for(let slide of this.elem.querySelectorAll('.carousel__button')){
+    //   slide.addEventListener('click',(event) => {
+    //     let myEvent = new CustomEvent("product-add", {
+    //       detail: slide.parentElement.parentElement.dataset.id, // Уникальный идентификатора товара из объекта товара
+    //       bubbles: true // это событие всплывает - это понадобится в дальнейшем
+    //     });
+    //     this.elem.dispatchEvent(myEvent);
+    //   });
+    // }
     document.body.append(this.elem);
+    this.addEventListeners();
   }
 
-  slide() {
-    let carousel__inner = this.parentElement.querySelector('.carousel__inner');
-    let direction = (this.classList.contains("carousel__arrow_right"))?'-1':'1'; //узнать направление движения
+  addEventListeners() {
+    this.elem.onclick = ({target}) => {
+      let button = target.closest('.carousel__button');
+      if (button) {
+        let id = target.closest('[data-id]').dataset.id;
+        this.elem.dispatchEvent(new CustomEvent('product-add', {
+          detail: id,
+          bubbles: true
+        }));
+      }
+
+      if (target.closest('.carousel__arrow_right')) {
+        this.slide(target.closest('.carousel__arrow_right'));
+      }
+
+      if (target.closest('.carousel__arrow_left')) {
+        this.slide(target.closest('.carousel__arrow_left'));
+      }
+    };
+  }
+
+  slide(target) {
+    let carousel__inner = target.parentElement.querySelector('.carousel__inner');
+    let direction = (target.classList.contains("carousel__arrow_right"))?'-1':'1'; //узнать направление движения
     let width = carousel__inner.offsetWidth; //ширина картинки
     let cnt = carousel__inner.childElementCount; // количество слайдов
     let position = + carousel__inner.style.transform.slice(11).slice(0,-3); //текущая позиция
     let res=position+width*direction; //новая позиция
 
-    (position == -width*(cnt-2) && direction==-1)? this.parentElement.querySelector('.carousel__arrow_right').style.display = 'none' : this.parentElement.querySelector('.carousel__arrow_right').style.display = '';
-    (position == -width && direction==1)? this.parentElement.querySelector('.carousel__arrow_left').style.display = 'none' : this.parentElement.querySelector('.carousel__arrow_left').style.display = '';
+    (position == -width*(cnt-2) && direction==-1)? target.parentElement.querySelector('.carousel__arrow_right').style.display = 'none' : target.parentElement.querySelector('.carousel__arrow_right').style.display = '';
+    (position == -width && direction==1)? target.parentElement.querySelector('.carousel__arrow_left').style.display = 'none' : target.parentElement.querySelector('.carousel__arrow_left').style.display = '';
     carousel__inner.style.transform = 'translateX('+ res +'px)';
   }
 }
